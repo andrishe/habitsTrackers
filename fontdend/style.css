@@ -1,0 +1,69 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  background: #f8f5fc;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.card {
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  margin: 2rem auto;
+  max-width: 40rem;
+  padding: 2rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+li {
+  background: #f8f5fc;
+  margin: 0.5rem auto 0.25rem;
+  padding: 1rem;
+  max-width: 20rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #f8f5fc;
+}
+
+.check {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.check-green {
+  color: green;
+}
+
+.check-red {
+  color: red;
+}
+i {
+  font-size: 1.2rem;
+  padding-right: 0.5rem;
+  cursor: pointer;
+}
+.red-background {
+  background: #ff9592;
+}
+
+.green-background {
+  background: #3dd68c;
+}
