@@ -1,50 +1,82 @@
-// Faire une requête GET à votre serveur
 import "./style.css";
 
-fetch("http://localhost:3000/habits")
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data);
-    const appElement = document.getElementById("app");
+function createHabitElement(habit, ulElement) {
+  const liHabit = document.createElement("li");
+  liHabit.innerHTML = `${habit.title}`;
 
-    // Créer un élément ul
-    const ulElement = document.createElement("ul");
+  const iconHabit = document.createElement("i");
+  iconHabit.classList.add("fas", habit.completed ? "fa-check" : "fa-times");
+  iconHabit.classList.add(habit.completed ? "check-green" : "check-red");
 
-    data.habits.map((habit) => {
-      // Créer un élément de liste pour chaque habitude
-      const liHabit = document.createElement("li");
-      liHabit.innerHTML = `${habit.title}`;
+  iconHabit.addEventListener("click", () => {
+    if (iconHabit.classList.contains("fa-check")) {
+      iconHabit.classList.replace("fa-check", "fa-times");
+      iconHabit.classList.replace("check-green", "check-red");
+      liHabit.classList.remove("green-background");
+      liHabit.classList.add("red-background");
+    } else {
+      iconHabit.classList.replace("fa-times", "fa-check");
+      iconHabit.classList.replace("check-red", "check-green");
+      liHabit.classList.remove("red-background");
+      liHabit.classList.add("green-background");
+    }
+  });
 
-      // Créer un élément icon pour chaque habitude (correction ici)
-      const iconHabit = document.createElement("i");
-      iconHabit.classList.add("fas", habit.completed ? "fa-check" : "fa-times");
-      iconHabit.classList.add(habit.completed ? "check-green" : "check-red");
+  liHabit.appendChild(iconHabit);
+  ulElement.appendChild(liHabit);
+}
 
-      // Ajouter un écouteur d'événement au click sur l'icône (correction ici)
-      iconHabit.addEventListener("click", () => {
-        if (iconHabit.classList.contains("fa-check")) {
-          iconHabit.classList.replace("fa-check", "fa-times");
-          iconHabit.classList.replace("check-green", "check-red");
-          liHabit.classList.remove("green-background"); // Supprime la classe "green-background"
-          liHabit.classList.add("red-background"); // Ajoute la classe "red-background"
-        } else {
-          iconHabit.classList.replace("fa-times", "fa-check");
-          iconHabit.classList.replace("check-red", "check-green");
-          liHabit.classList.remove("red-background"); // Supprime la classe "red-background"
-          liHabit.classList.add("green-background"); // Ajoute la classe "green-background"
-        }
-      });
+document.addEventListener("DOMContentLoaded", () => {
+  const appElement = document.getElementById("app");
+  const ulElement = document.createElement("ul");
+  appElement.appendChild(ulElement);
 
-      // Ajouter l'icône à l'élément de liste
-      liHabit.appendChild(iconHabit);
-
-      // Append the liHabit to the ulElement
-      ulElement.appendChild(liHabit);
+  fetch("http://localhost:3000/habits")
+    .then((response) => response.json())
+    .then((data) => {
+      data.habits.map((habit) => createHabitElement(habit, ulElement));
+    })
+    .catch((error) => {
+      console.error("Error:", error);
     });
 
-    // Append the ulElement to the "app" element
-    appElement.appendChild(ulElement);
-  })
-  .catch((error) => {
-    console.error("Error:", error);
+  document.getElementById("addHabitButton").addEventListener("click", () => {
+    document.getElementById("addHabitModal").style.display = "block";
   });
+
+  document.querySelector(".close").addEventListener("click", () => {
+    document.getElementById("addHabitModal").style.display = "none";
+  });
+
+  document
+    .getElementById("newHabitForm")
+    .addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const newHabitTitle = document.getElementById("newHabitTitle").value;
+
+      if (newHabitTitle) {
+        fetch("http://localhost:3000/habits", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: newHabitTitle,
+            completed: false,
+          }),
+        })
+          .then((response) => response.json())
+          .then((newHabit) => {
+            createHabitElement(newHabit, ulElement);
+            document.getElementById("addHabitModal").style.display = "none";
+          })
+          .catch((error) => {
+            console.error(
+              "Erreur lors de l'ajout d'une nouvelle habitude:",
+              error
+            );
+          });
+      }
+    });
+});

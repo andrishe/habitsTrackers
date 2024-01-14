@@ -67,3 +67,82 @@ i {
 .green-background {
   background: #3dd68c;
 }
+
+/* The Modal (background) */
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #049758; /* Couleur de fond du modal */
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #049758; /* Couleur de la bordure */
+  border-radius: 10px; /* Coins arrondis */
+  width: 50%; /* Largeur du contenu du modal */
+  color: #f8f5fc; /* Couleur du texte */
+}
+
+/* Le bouton de fermeture */
+.close {
+  color: #ff6e6e;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #e51d1d;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Ajout d'un peu de style pour le formulaire à l'intérieur du modal */
+#newHabitForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#newHabitTitle {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #34495e;
+  border-radius: 5px;
+  width: 80%;
+}
+
+#newHabitForm button {
+  background-color: #ecfdf3;
+  color: #4f4f4f;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#newHabitForm button:hover {
+  background-color: #6de8a8;
+  color: #fff;
+}
+button {
+  background-color: #6de8a8;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
