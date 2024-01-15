@@ -5,8 +5,9 @@ function createHabitElement(habit, ulElement) {
   liHabit.innerHTML = `${habit.title}`;
 
   const iconHabit = document.createElement("i");
-  iconHabit.classList.add("fas", habit.completed ? "fa-check" : "fa-times");
-  iconHabit.classList.add(habit.completed ? "check-green" : "check-red");
+  const completed = habit.completed !== undefined ? habit.completed : false;
+  iconHabit.classList.add("fas", completed ? "fa-check" : "fa-times");
+  iconHabit.classList.add(completed ? "check-green" : "check-red");
 
   iconHabit.addEventListener("click", () => {
     if (iconHabit.classList.contains("fa-check")) {
@@ -31,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const ulElement = document.createElement("ul");
   appElement.appendChild(ulElement);
 
-  fetch("http://localhost:3000/habits")
+  fetch("http://localhost:3000/habits/today")
     .then((response) => response.json())
     .then((data) => {
       data.habits.map((habit) => createHabitElement(habit, ulElement));
@@ -67,8 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
           }),
         })
           .then((response) => response.json())
-          .then((newHabit) => {
-            createHabitElement(newHabit, ulElement);
+          .then((data) => {
+            createHabitElement(data.habit, ulElement); // Utiliser l'objet de l'habitude complète
             document.getElementById("addHabitModal").style.display = "none";
           })
           .catch((error) => {
